@@ -1,0 +1,32 @@
+This is a VERY SIMPLE tally program made for the CASESTEA general election on March 11, 2011.
+
+Basic Functionalities:
+	- There is a tally sheet per precinct where the candidates and their respective positions are listed. (tally.php)
+	- A candidate is selected by checking the corrresponding checkbox.
+	- Clicking the add button increments the votes for each selected candidate.
+	- Summary of results can be viewed at [subdirectory/]admin/results.php
+	- The results can be cleared by loading [subdirectory/]admin/reset.php
+
+Requirements
+	- PHP, Apache, Postgresql, Firefox
+
+Installation
+	- Copy the included files and directories into a subdirectory of the document root of the webserver.
+	- (The next steps assumes the use of pgAdmin)
+	- Create a database and or another database user
+	- Create several tables and their columns
+		- positions
+			- id (integer, primary key) 
+			- name (varchar)
+			- composition (smallint) (this is the maximum number of candidates that can be voted upon per position)
+		- candidates
+			- id (integer, primary key)
+			- name (varchar)
+			- position_id (foreign key to positions.id. any value here should first be present in the id column of positions table)
+		- vote_summary
+			- candidate_id (integer, foreign key to candidates.id)
+			- precinct_[x] (smallint, default initial value must be 0, as many columns as the number of precincts)
+	- Manually add the positions and candidates by adding rows to the positions and candidates tables.
+	- Populate the vote summary tables accordingly with one row for each candidate id
+	- Modify settings.php accordingly (change the database connection parameters or number of precincts)
+	
